@@ -1,0 +1,40 @@
+# dépendances
+node_modules/
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# environnement
+.env
+.env.local
+.env.*.local
+
+# runtime
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# coverage / tests
+coverage/
+
+# build output (si build futur)
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# optional
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
