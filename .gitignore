@@ -22,7 +22,7 @@ pids
 # coverage / tests
 coverage/
 
-# build output (si build futur)
+# build output
 dist/
 build/
 
@@ -36,5 +36,6 @@ Thumbs.db
 
 # optional
 package-lock.json
-yarn.lock
-pnpm-lock.yaml
+
+#files
+uploads/

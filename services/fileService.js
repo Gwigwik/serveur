@@ -3,33 +3,37 @@ const path = require('path');
 const { randomUUID } = require('crypto');
 
 const UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
-const EXPIRATION_MS = 60 * 60 * 1000 * 10; //10h
+const EXPIRATION_MS = 60 * 60 * 1000 * 10; // 10h
 
 const files = new Map();
 
-function saveFile(buffer, originalName) {
+function saveFile(filePath, originalName) {
     const id = randomUUID();
-    const filePath = path.join(UPLOAD_DIR, id);
+    const ext = path.extname(originalName);
 
-    fs.writeFileSync(filePath, buffer);
+    const filename = id + ext;
+    const newPath = path.join(UPLOAD_DIR, filename);
 
-    files.set(id, {
-        path: filePath,
+    fs.renameSync(filePath, newPath);
+
+    files.set(filename, {
+        path: newPath,
         expiresAt: Date.now() + EXPIRATION_MS
     });
-
-    return id;
+    console.log(`Saved file: ${filename}`);
+    return filename;
 }
 
 function getFile(id) {
     const meta = files.get(id);
+    
     if (!meta) return null;
 
     if (Date.now() > meta.expiresAt) {
         deleteFile(id);
         return null;
     }
-
+    console.log(`Get file: ${id}`)
     return meta.path;
 }
 
@@ -39,7 +43,7 @@ function deleteFile(id) {
 
     try {
         fs.unlinkSync(meta.path);
-    } catch (e) {}
+    } catch {}
 
     files.delete(id);
 }
