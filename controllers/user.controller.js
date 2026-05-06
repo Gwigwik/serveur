@@ -1,7 +1,4 @@
-exports.getUsers = (req, res) => {
+exports.connect = (req, res) => {
+  console.log("Connection trial")
   res.json("plop");
-};
-
-exports.createUser = (req, res) => {
-  res.status(201).json("plip");
 };
